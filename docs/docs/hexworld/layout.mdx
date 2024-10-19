@@ -1,0 +1,57 @@
+import { Hexgrid } from '../components/Hexgrid';
+
+# Layout
+
+The Layout class is the basis for creating grids. It has functionality for converting between pixel and grid space and supports different orientations.
+
+## Interface
+
+```ts
+class Layout {
+    size: number;
+    origin: Point;
+    orientation: Orientation;
+    constructor(orientation: "pointy" | "flat", size: number, origin?: Point);
+    hexToPixel(hex: Hex): Point;
+    pixelToHex(point: Point): Hex;
+    hexWidth(): number;
+    hexHeight(): number;
+}
+```
+
+## Orientation
+
+Layout supports two orientations, namely the "pointy" and the "flat" orientation.
+
+<div style={{ display: 'flex' }}>
+    <Hexgrid orientation="pointy" />
+    <Hexgrid orientation="flat" />
+</div>
+
+```ts
+import { Layout } from '@lightvis/hexworld';
+
+// Create pointy layout with size 20
+const pointyLayout = new Layout("pointy", 20);
+
+// Create flat layout with size 20
+const flatLayout = new Layout("flat", 20);
+```
+
+## Pixel to hex
+
+The pixel to hex conversion is useful for interactions. For instance it can be used to find the hex that the user is currently hovering.
+
+```ts
+// Retrieves a Hex object with the axial coordinates
+const hex = layout.pixelToHex({ x: 100, y: 100 });
+```
+
+## Hex to pixel
+
+The hex to pixel conversion is useful for drawing.
+
+```ts
+// Retrieves pixel coordinates (center) for a given hex
+const pixel = layout.hexToPixel(new Hex(0, 0));
+```
